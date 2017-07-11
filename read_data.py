@@ -11,13 +11,17 @@ import matplotlib.pyplot as plt
 stock_code = '300222_sz'  #科大智能
 # stock_code = '600000_sh'
 #从数据库中读取对应股票某段时间内的数据
-data = mPyArtic.TICK_HANDLE.read(stock_code,mPyArtic.date.DateRange(mPyArtic.stdDate(datetime(2016,9,1)),mPyArtic.stdDate(datetime(2016,9,30))))
-data = mPyArtic.ORDER_HANDLE.read(stock_code,mPyArtic.date.DateRange(mPyArtic.stdDate(datetime(2016,9,1)),mPyArtic.stdDate(datetime(2016,9,30))))
-data = mPyArtic.TRANS_HANDLE.read(stock_code,mPyArtic.date.DateRange(mPyArtic.stdDate(datetime(2016,9,1)),mPyArtic.stdDate(datetime(2016,9,30))))
-data = mPyArtic.ORDERQUEUE_HANDLE.read(stock_code,mPyArtic.date.DateRange(mPyArtic.stdDate(datetime(2016,9,1)),mPyArtic.stdDate(datetime(2016,9,30))))
-data = mPyArtic.TICK_HANDLE.read(stock_code,mPyArtic.date.DateRange(mPyArtic.stdDate(datetime(2016,9,1)),mPyArtic.stdDate(datetime(2016,9,30))))
+tick = mPyArtic.TICK_HANDLE.read(stock_code,mPyArtic.date.DateRange(mPyArtic.stdDate(datetime(2016,9,1)),mPyArtic.stdDate(datetime(2016,9,30))))
+tick.index = tick.index.tz_convert(tz=mPyArtic.TZ_LOCAL)
+order = mPyArtic.ORDER_HANDLE.read(stock_code,mPyArtic.date.DateRange(mPyArtic.stdDate(datetime(2016,9,1)),mPyArtic.stdDate(datetime(2016,9,30))))
+order.index = order.index.tz_convert(tz=mPyArtic.TZ_LOCAL)
+trans = mPyArtic.TRANS_HANDLE.read(stock_code,mPyArtic.date.DateRange(mPyArtic.stdDate(datetime(2016,9,1)),mPyArtic.stdDate(datetime(2016,9,30))))
+trans.index = trans.index.tz_convert(tz=mPyArtic.TZ_LOCAL)
+queue = mPyArtic.ORDERQUEUE_HANDLE.read(stock_code,mPyArtic.date.DateRange(mPyArtic.stdDate(datetime(2016,9,1)),mPyArtic.stdDate(datetime(2016,9,30))))
+queue.index = queue.index.tz_convert(tz=mPyArtic.TZ_LOCAL)
+
 #将时间规范化为本地时间
-data.index = data.index.tz_convert(tz=mPyArtic.TZ_LOCAL)
+
 data['2016-09-23 09:50:00':'2016-09-23 14:50:00']
 data = data[[u'P', u'V', u'T', u'MI', u'AV', u'AT', u'O',u'AP1',u'AV1']]
 
